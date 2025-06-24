@@ -2,7 +2,10 @@
 import * as os from "qjs:os";
 
 const isWin = os.platform === 'win32';
-const { Point } = await import(`./point.${isWin ? 'dll' : 'so'}`);
+const isDarwin = os.platform === 'darwin';
+const ext = isWin ? 'dll' : (isDarwin ? 'dylib' : 'so');
+
+const { Point } = await import(`./point.${ext}`);
 
 function assert(b, str)
 {
